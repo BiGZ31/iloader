@@ -99,31 +99,35 @@ pub async fn install_sidestore_operation(
     sideloader_state: State<'_, SideloaderMutex>,
     nightly: bool,
     live_container: bool,
+    custom_url: Option<String>,
 ) -> Result<(), AppError> {
     let op = Operation::new("install_sidestore".to_string(), &window);
     op.start("download")?;
     // TODO: Cache & check version to avoid re-downloading
-    let (filename, url) = if live_container {
+    // custom_url (fucksubsStore fork) takes priority: install that IPA from the given URL.
+    let (filename, url): (&str, String) = if let Some(u) = custom_url {
+        ("fucksubsStore.ipa", u)
+    } else if live_container {
         if nightly {
             (
                 "LiveContainerSideStore-Nightly.ipa",
-                "https://github.com/LiveContainer/LiveContainer/releases/download/nightly/LiveContainer+SideStore.ipa",
+                "https://github.com/LiveContainer/LiveContainer/releases/download/nightly/LiveContainer+SideStore.ipa".to_string(),
             )
         } else {
             (
                 "LiveContainerSideStore.ipa",
-                "https://github.com/LiveContainer/LiveContainer/releases/latest/download/LiveContainer+SideStore.ipa",
+                "https://github.com/LiveContainer/LiveContainer/releases/latest/download/LiveContainer+SideStore.ipa".to_string(),
             )
         }
     } else if nightly {
         (
             "SideStore-Nightly.ipa",
-            "https://github.com/SideStore/SideStore/releases/download/nightly/SideStore.ipa",
+            "https://github.com/SideStore/SideStore/releases/download/nightly/SideStore.ipa".to_string(),
         )
     } else {
         (
             "SideStore.ipa",
-            "https://github.com/SideStore/SideStore/releases/latest/download/SideStore.ipa",
+            "https://github.com/SideStore/SideStore/releases/latest/download/SideStore.ipa".to_string(),
         )
     };
 
@@ -132,7 +136,7 @@ pub async fn install_sidestore_operation(
         .temp_dir()
         .map_err(|e| AppError::Filesystem("Failed to get temp dir".into(), e.to_string()))?
         .join(filename);
-    op.fail_if_err("download", download(url, &dest).await)?;
+    op.fail_if_err("download", download(&url, &dest).await)?;
     op.move_on("download", "install")?;
     let device = {
         let device_guard = device_state.lock().unwrap();

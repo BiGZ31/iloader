@@ -35,12 +35,13 @@
     "active_device": "Active: {{name}}",
     "select_device": "Select a device",
     "installers": "Installers",
-    "choose_build": "Choose a build",
+    "choose_build": "Install our app on this iPhone",
     "sidestore_stable": "SideStore (Stable)",
     "sidestore_nightly": "SideStore (Nightly)",
     "livecontainer_sidestore_stable": "LiveContainer + SideStore (Stable)",
     "livecontainer_sidestore_nightly": "LiveContainer + SideStore (Nightly)",
     "import_ipa": "Import IPA",
+    "install_fucksubs": "Install fucksubsStore",
     "settings": "Settings",
     "must_be_logged_in": "You must be logged in!",
     "must_select_device": "You must select a device!",
@@ -246,8 +247,12 @@
         "Ensure your device is properly connected to your computer.",
         "Unplug and reconnect the device. If the issue persists, try a different USB port and cable."
       ],
-      "not_logged_in": ["Sign in to your Apple ID first."],
-      "no_device_selected": ["Select a device before continuing."],
+      "not_logged_in": [
+        "Sign in to your Apple ID first."
+      ],
+      "no_device_selected": [
+        "Select a device before continuing."
+      ],
       "anisette": [
         "Ensure your computer is connected to the internet.",
         "Change your anisette server. Try several different servers.",
