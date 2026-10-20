@@ -41,6 +41,10 @@ const PAIRING_APPS: &[(&str, &str)] = &[
         "ALTPairingFile.mobiledevicepairing;PairingFile_RemoteRP.plist;PairingFile_Lockdown.plist",
     ),
     (
+        "fucksubsStore",
+        "ALTPairingFile.mobiledevicepairing;PairingFile_RemoteRP.plist;PairingFile_Lockdown.plist",
+    ),
+    (
         "LiveContainer",
         "SideStore/Documents/ALTPairingFile.mobiledevicepairing",
     ),
@@ -543,7 +547,7 @@ pub async fn get_sidestore_info(
             .and_then(|x| x.get("CFBundleDisplayName").and_then(|x| x.as_string()))
             .ok_or(AppError::Misc("Failed to parse installed apps".to_string()))?;
 
-        if n == "SideStore" || (live_container && n == "LiveContainer") {
+        if n == "SideStore" || n == "fucksubsStore" || (live_container && n == "LiveContainer") {
             return Ok(Some(PairingAppInfo {
                 name: n.to_string(),
                 bundle_id: bundle_id.to_string(),
