@@ -33,7 +33,7 @@ export default ({
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
   const [anisetteServer] = useStore<string>(
     "newAnisetteServer",
-    "new.ani.sidestore.io",
+    "ani2.stikstore.app",
   );
   const { platform } = usePlatform();
   const [suggestions, setSuggestions] = useState<string[]>([]);

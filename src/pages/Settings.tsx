@@ -54,7 +54,7 @@ export const Settings = ({
   const { t } = useTranslation();
   const [anisetteServer, setAnisetteServer] = useStore<string>(
     "newAnisetteServer",
-    "new.ani.sidestore.io",
+    "ani2.stikstore.app",
   );
 
   const [overrideKeyring, setOverrideKeyring] = useStore<boolean>(
